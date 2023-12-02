@@ -2,11 +2,12 @@ public class Sorting {
 
     public static void main(String[] args) {
 
-        int[] data = { 4, 7, 9, 3, 5, 2, 1, 6, 8 };
+        int[] data = { 4, 7, 9, 3, 5, 2, 1, 6, 8, 0 };
         // bubbleSort(data);
         // selectionSort(data);
         // insertionSort(data);
-        mergeSort(data, 0, data.length - 1);
+        // mergeSort(data, 0, data.length - 1);
+        quickSort(data, 0, data.length - 1);
         for (int i : data) {
             System.out.print(i);
         }
@@ -96,6 +97,36 @@ public class Sorting {
 
         while (rightPointer < sizeRight)
             data[index++] = rightArray[rightPointer++];
+    }
+
+    public static void quickSort(int[] data, int left, int right) {
+
+        if (left >= right)
+            return;
+
+        int pivot = partition(data, left, right);
+        quickSort(data, left, pivot - 1);
+        quickSort(data, pivot + 1, right);
+    }
+
+    public static int partition(int[] data, int left, int right) {
+
+        int pivot = data[right];
+        int i = left - 1;
+        for (int j = left; j <= right - 1; j++) {
+            if (data[j] < pivot) {
+                i++;
+                int temp = data[i];
+                data[i] = data[j];
+                data[j] = temp;
+            }
+        }
+
+        i++;
+        data[right] = data[i];
+        data[i] = pivot;
+
+        return i;
     }
 
 }
